@@ -1,5 +1,6 @@
 package com.exam.service.impl;
 
+import com.exam.helper.UserFoundException;
 import com.exam.model.Role;
 import com.exam.model.User;
 import com.exam.model.UserRole;
@@ -23,13 +24,13 @@ public class UserServiceImpl implements UserService {
 
     // creating user
     @Override
-    public User createUser(User user, Set<UserRole> userRoles) throws Exception {
+    public User createUser(User user, Set<UserRole> userRoles) throws UserFoundException {
 
         // check if username is available or not in database
         User local = this.userRepository.findByUsername(user.getUsername());
         if (local != null) {
             System.out.println("User already present");
-            throw new Exception("User already present !!");
+            throw new UserFoundException();
         } else {
             // user create
             for (UserRole ur : userRoles) {

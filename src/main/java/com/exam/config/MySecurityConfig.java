@@ -16,18 +16,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
-@Autowired
-private UserDetailServiceImpl userDetailServiceImpl;
-@Autowired
-private JwtAuthenticationEntryPoint unauthorizedHandler;
+    @Autowired
+    private UserDetailServiceImpl userDetailServiceImpl;
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
-@Autowired
-private JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+
+    private final String[] urlStrings = {"/generate-token", "/user/", "/v2/api-docs",
+            "/swagger-resources/**", "/swagger-ui/**", "/webjars/**"
+    };
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -42,7 +49,7 @@ private JwtAuthenticationFilter jwtAuthenticationFilter;
                 .cors()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/generate-token","/user/").permitAll()
+                .antMatchers(urlStrings).permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -59,8 +66,8 @@ private JwtAuthenticationFilter jwtAuthenticationFilter;
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-       return new BCryptPasswordEncoder();
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 

@@ -27,7 +27,7 @@ public class User implements UserDetails {
     private String profile;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "user")
-   @JsonIgnore
+    @JsonIgnore
     private Set<UserRole> userRoles= new HashSet<UserRole>();
 
     public Set<UserRole> getUserRoles() {

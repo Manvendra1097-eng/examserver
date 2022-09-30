@@ -1,0 +1,50 @@
+
+Stack holder :
+       1.User
+       - Admin/Normal
+         - login
+         - register
+       a. Module - Register module
+                      - login module
+                      a. Admin login
+                           - Category Operations
+                           - Quizzes Operations
+                           - Question Operations
+                           - Quiz Analysis ...
+                      b. Normal login
+                           - Show Quizzes by Category
+                           - Take Quizzes
+                           - Result Download
+                           - Attempted Quiz ...
+
+
+       Tables
+        1. User
+              - id
+              - firstName
+              - lastName
+              - username
+              - email
+              - password
+              - enable
+
+        2. Role
+              - id
+              - roleName
+
+              Role and User have - ManyToMany relation
+
+        2. Category
+              - id
+              - categoryName
+              - description
+
+        3. Quizzes
+               - id
+               - title
+
+               Category and Quizzes have OneToMany relationship
+
+        4. Questions
+                 - id
+                 -
